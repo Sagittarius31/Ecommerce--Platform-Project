@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ecommerce-alerts
+  namespace: monitoring
+spec:
+  groups:
+    - name: ecommerce
+      rules:
+        - alert: ServiceDown
+          expr: up == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Service {{ $labels.job }} is down"
+        - alert: HighErrorRate
+          expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100 > 5
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "High error rate on {{ $labels.service }}"

@@ -1,0 +1,9 @@
+variable "project_name"      { default = "ecommerce" }
+variable "environment"       { default = "dev" }
+variable "region"            { default = "us-east-1" }
+variable "cluster_name"      { default = "ecommerce-eks-dev" }
+variable "node_instance_type" { default = "t3.medium" }
+variable "node_min_size"     { default = 2 }
+variable "node_max_size"     { default = 10 }
+variable "node_desired_size" { default = 3 }
+variable "db_password"       { sensitive = true }

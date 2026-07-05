@@ -1,0 +1,4 @@
+syntax = "proto3"; package order; option go_package = "github.com/yourname/ecommerce/proto/order";
+service OrderService { rpc GetOrder(GetOrderRequest) returns (GetOrderResponse); }
+message GetOrderRequest  { string order_id = 1; }
+message GetOrderResponse { string order_id = 1; string status = 2; double total = 3; }

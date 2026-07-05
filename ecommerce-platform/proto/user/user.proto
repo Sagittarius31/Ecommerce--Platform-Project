@@ -1,0 +1,12 @@
+syntax = "proto3";
+package user;
+option go_package = "github.com/yourname/ecommerce/proto/user";
+
+service UserService {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+message GetUserRequest  { string user_id = 1; }
+message GetUserResponse { string user_id = 1; string email = 2; string role = 3; bool active = 4; }
+message ValidateTokenRequest  { string token = 1; }
+message ValidateTokenResponse { bool valid = 1; string user_id = 2; string role = 3; }

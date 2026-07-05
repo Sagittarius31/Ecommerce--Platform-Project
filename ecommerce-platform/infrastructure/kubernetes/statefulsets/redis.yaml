@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  namespace: ecommerce
+spec:
+  serviceName: redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          command: ["redis-server","--maxmemory","256mb","--maxmemory-policy","allkeys-lru"]
+          ports: [{containerPort: 6379}]
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits:   {cpu: 200m, memory: 256Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: ecommerce
+spec:
+  selector: {app: redis}
+  clusterIP: None
+  ports:
+    - port: 6379

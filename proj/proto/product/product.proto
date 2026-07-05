@@ -1,0 +1,4 @@
+syntax = "proto3"; package product; option go_package = "github.com/yourname/ecommerce/proto/product";
+service ProductService { rpc CheckStock(CheckStockRequest) returns (CheckStockResponse); }
+message CheckStockRequest  { string product_id = 1; int32 quantity = 2; }
+message CheckStockResponse { bool available = 1; int32 current_stock = 2; }
